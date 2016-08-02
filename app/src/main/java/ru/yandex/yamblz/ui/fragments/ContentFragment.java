@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import butterknife.OnItemClick;
 import ru.yandex.yamblz.R;
 
@@ -25,14 +27,30 @@ public class ContentFragment extends BaseFragment {
     @BindView(R.id.rv)
     RecyclerView rv;
 
-    GridLayoutManager gridLayoutManager;
+    @OnClick(R.id.buttonAdd)
+    public void AddColumn() {
+        gridLayoutManager.setSpanCount(gridLayoutManager.getSpanCount() + 1);
+        gridLayoutManager.requestLayout();
+    }
+
+    @OnClick(R.id.buttonRemove)
+    public void RemoveColumn() {
+        gridLayoutManager.setSpanCount(max(gridLayoutManager.getSpanCount() - 1, 1));
+        gridLayoutManager.requestLayout();
+    }
+
+
+    private GridLayoutManager gridLayoutManager;
     private int COLUMNS_NUM = 1;
+
+
+
+
 
     @NonNull
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_content, container, false);
-        initButtons(v);
         return v;
     }
 
@@ -42,24 +60,12 @@ public class ContentFragment extends BaseFragment {
 
         gridLayoutManager = new GridLayoutManager(getContext(), COLUMNS_NUM);
         rv.setLayoutManager(gridLayoutManager);
-        rv.setAdapter(new ContentAdapter());
-    }
+        ContentAdapter adapter = new ContentAdapter();
+        ItemTouchHelper.Callback callback = new CallBack(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(rv);
 
-    void initButtons(View v){
-        Button buttonAdd = (Button) v.findViewById(R.id.buttonAdd);
-        buttonAdd.setOnClickListener(v1 -> {
-            gridLayoutManager.setSpanCount(gridLayoutManager.getSpanCount() + 1);
-            gridLayoutManager.requestLayout();
-        });
-
-        Button buttonRemove = (Button) v.findViewById(R.id.buttonRemove);
-        buttonRemove.setOnClickListener(v1 -> {
-            gridLayoutManager.setSpanCount(max(1, gridLayoutManager.getSpanCount() - 1));
-            gridLayoutManager.requestLayout();
-        });
-        
-
-
+        rv.setAdapter(adapter);
     }
 
 
