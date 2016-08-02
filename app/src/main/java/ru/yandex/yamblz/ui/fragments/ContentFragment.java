@@ -30,13 +30,13 @@ public class ContentFragment extends BaseFragment {
     @OnClick(R.id.buttonAdd)
     public void AddColumn() {
         gridLayoutManager.setSpanCount(gridLayoutManager.getSpanCount() + 1);
-        gridLayoutManager.requestLayout();
+        rv.getAdapter().notifyDataSetChanged();
     }
 
     @OnClick(R.id.buttonRemove)
     public void RemoveColumn() {
         gridLayoutManager.setSpanCount(max(gridLayoutManager.getSpanCount() - 1, 1));
-        gridLayoutManager.requestLayout();
+        rv.getAdapter().notifyDataSetChanged();
     }
 
 
