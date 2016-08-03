@@ -3,4 +3,5 @@
     <string name="content">Hello</string>
     <string name="Add">Add</string>
     <string name="Remove">Remove</string>
+    <string name="Borders">Borders</string>
 </resources>

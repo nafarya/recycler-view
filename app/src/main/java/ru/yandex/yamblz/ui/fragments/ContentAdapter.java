@@ -18,11 +18,14 @@ class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentHolder> 
 
     private final Random rnd = new Random();
     private final List<Integer> colors = new ArrayList<>();
+    RecyclerView.Adapter adapter;
 
     public ContentAdapter() {
         super();
         setHasStableIds(true);
     }
+
+
 
     @Override
     public long getItemId(int position) {
@@ -51,6 +54,8 @@ class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentHolder> 
         return colors.get(position);
     }
 
+
+
     @Override
     public void onItemMove(int fromPosition, int toPosition) {
         if (fromPosition < toPosition) {
@@ -75,10 +80,11 @@ class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentHolder> 
         ContentHolder(View itemView) {
             super(itemView);
         }
-
         void bind(Integer color) {
             itemView.setBackgroundColor(color);
             ((TextView) itemView).setText("#".concat(Integer.toHexString(color).substring(2)));
         }
     }
+
+
 }
