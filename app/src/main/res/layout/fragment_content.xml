@@ -6,14 +6,33 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonBorder"
+            android:text="@string/Borders"
+            android:layout_marginRight="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
+
+        </Button>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/buttonAdd"
-            android:text="@string/Add">
+            android:text="@string/Add"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp">
         </Button>
 
         <Button
@@ -21,16 +40,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/buttonRemove"
             android:text="@string/Remove"
-            android:layout_toRightOf="@+id/buttonAdd">
-
-        </Button>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/buttonBorder"
-            android:text="@string/Borders"
-            android:layout_toRightOf="@+id/buttonRemove">
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true">
 
         </Button>
 

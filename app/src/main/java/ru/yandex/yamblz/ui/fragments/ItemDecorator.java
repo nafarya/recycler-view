@@ -17,20 +17,22 @@ public class ItemDecorator extends RecyclerView.ItemDecoration {
 
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
         int curLen = parent.getChildCount();
+        int strokeWidth = 10;
         View curView;
-
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
         paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(10);
+        paint.setStrokeWidth(strokeWidth);
 
         for (int i = 0; i < curLen; i++) {
             curView = parent.getChildAt(i);
             if (parent.getChildAdapterPosition(curView) % 2 == 0) {
-                c.drawRect(layoutManager.getDecoratedLeft(curView) + 5, layoutManager.getDecoratedTop(curView) + 5,
-                        layoutManager.getDecoratedRight(curView) - 5, layoutManager.getDecoratedBottom(curView) - 5, paint);
+                c.drawRect(layoutManager.getDecoratedLeft(curView) + strokeWidth / 2, layoutManager.getDecoratedTop(curView) + strokeWidth / 2,
+                        layoutManager.getDecoratedRight(curView) - strokeWidth / 2, layoutManager.getDecoratedBottom(curView) - strokeWidth / 2, paint);
             }
         }
+
     }
+
 
 }

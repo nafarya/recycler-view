@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -45,7 +46,6 @@ public class ContentFragment extends BaseFragment {
         }
         rv.getAdapter().notifyDataSetChanged();
         itemDecoratorFlag = !itemDecoratorFlag;
-
     }
 
     private boolean itemDecoratorFlag = false;
@@ -72,7 +72,6 @@ public class ContentFragment extends BaseFragment {
         ItemTouchHelper.Callback callback = new CallBack(adapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(rv);
-
 
         rv.setAdapter(adapter);
     }

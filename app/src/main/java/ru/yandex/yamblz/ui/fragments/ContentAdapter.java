@@ -1,8 +1,14 @@
 package ru.yandex.yamblz.ui.fragments;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.TypeConverter;
 import android.graphics.Color;
+import android.os.Looper;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -18,7 +24,6 @@ class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentHolder> 
 
     private final Random rnd = new Random();
     private final List<Integer> colors = new ArrayList<>();
-    RecyclerView.Adapter adapter;
 
     public ContentAdapter() {
         super();
@@ -34,7 +39,7 @@ class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentHolder> 
 
     @Override
     public ContentHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ContentHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.content_item, parent, false));
+        return new ContentHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.content_item, parent, false), this);
     }
 
     @Override
@@ -51,6 +56,11 @@ class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentHolder> 
         if (position >= colors.size()) {
             colors.add(Color.rgb(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255)));
         }
+        return colors.get(position);
+    }
+
+    public int changeColor(int position) {
+        colors.set(position, Color.rgb(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255)));
         return colors.get(position);
     }
 
@@ -77,8 +87,18 @@ class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentHolder> 
     }
 
     static class ContentHolder extends RecyclerView.ViewHolder {
-        ContentHolder(View itemView) {
+        ContentHolder(View itemView, ContentAdapter adapter) {
             super(itemView);
+            itemView.setOnClickListener(v -> {
+                v.setBackgroundColor(adapter.changeColor(getAdapterPosition()));
+                adapter.notifyItemChanged(getAdapterPosition());
+
+                /*int oldColor = adapter.createColorForPosition(getAdapterPosition());
+                int newColor = adapter.changeColor(getAdapterPosition());
+                ObjectAnimator.ofObject(v, "backgroundColor", new ArgbEvaluator(), oldColor, newColor)
+                        .setDuration(300).start();*/
+            }
+            );
         }
         void bind(Integer color) {
             itemView.setBackgroundColor(color);
